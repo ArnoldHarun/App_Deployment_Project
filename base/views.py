@@ -32,6 +32,7 @@ class RegisterPage(FormView):
     form_class = UserCreationForm
     redirect_authenticated_user = True
     success_url = reverse_lazy('tasks')
+    success_url = reverse_lazy('register')
 
     def form_valid(self, form):
         user = form.save()

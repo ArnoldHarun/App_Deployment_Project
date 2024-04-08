@@ -1,2 +1,3 @@
 /deploymentprojectenv
 db.sqlite3
+cloud-sql-proxy

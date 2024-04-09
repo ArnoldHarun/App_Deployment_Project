@@ -16,6 +16,8 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -70,16 +72,44 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'todo_list.wsgi.application'
 
+import pymysql
+pymysql.version_info=(1,4,6,'final',0)
+pymysql.install_as_MySQLdb()
+
+if os.getenv('GAE_APPLICATION', None):
+    DATABASES= {
+        'default':{
+            'ENGINE':'django.db.backends.mysql',
+            'HOST':'/cloudsql/deploymentdemodjango1:us-central1:django-project1',
+            'USER':'django-project1',
+            'PASSWORD':'django-project12024',
+            'NAME':'djangodemo',
+        }
+    }
+else:
+    
+    DATABASES={
+        'default':{
+            'ENGINE':'django.db.backends.mysql',
+            'HOST':'127.0.0.1',
+            'PORT':'3306',
+            'NAME':'djangodemo',
+            'USER':'django-project1',
+            'PASSWORD':'django-project12024',
+            
+        }
+    }    
+
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 
 # Password validation
@@ -121,3 +151,6 @@ LOGIN_URL = 'login'
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT=os.path.join(BASE_DIR,'static')
+
+STATICFILES_DIRS=[os.path.join(BASE_DIR, 'static')]

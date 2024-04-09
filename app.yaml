@@ -1,5 +1,6 @@
-runtime: python 3
+runtime: python38
 
+entrypoint: gunicorn -b :$PORT todo_list.wsgi
 handlers: 
 
 - url: /static
